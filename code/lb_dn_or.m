@@ -3,7 +3,7 @@ close all
 warning off
 
 %indicate experiment
-exp_name = 'dn_or'; %experiment name
+exp_name = 'dn_or_temp'; %experiment name
 
 %-----------------------------PARAMETERS-----------------------------------
 block_size = 50;
@@ -11,12 +11,14 @@ nr_trials_per_data_point = 50%per contrast level
 
 %presentation time
 time_blank = 500;
-time_stim = 50;
+time_stim = 200;
+time_isi = 800;
 
 %calculate the number of frames (1 frame 1/130 * 1000 = 7.7 ms)
 Current_FrameRate = 118;
 param.nr_frames_blank = round(time_blank/1000*Current_FrameRate);
 param.nr_frames_stim = round(time_stim/1000*Current_FrameRate);
+param.nr_frames_isi = round(time_isi/1000*Current_FrameRate);
 param.nr_frames_interleave = 1;
 
 %stimulus properties
@@ -32,13 +34,13 @@ param.freq = 1.5*param.pixel_size_degrees;
 param.phase = 0;
 param.back_lum = 0.5;
 param.contrast = 1;
-param.ecc = 10/param.pixel_size_degrees;
+param.ecc = 0/param.pixel_size_degrees;%8
 param.or = 0; 
 
 %conditions
 %within blocks
 contrast_vector = 1;%not of interest
-or_vector = linspace(-10,10,6);%manipulation of orientation in second component of compound stimulus
+or_vector = linspace(-3,3,6);%manipulation of orientation in second component of compound stimulus
 side_vector = [1 2];%whether compound stimulus is shown left(1) or right(0)
 
 %between blocks

@@ -238,7 +238,7 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
         %*****************DETERMINE CORRECTNESS OF RESPONSE********************
         if current_side_nonvert == 1 %reference stimulus is the one changing
             if current_side == 1 &  current_ref_or > 0%COMPOUND LEFT, REFERENCE RIGHT
-                correct = (answer == 1);%correct if right is chosen
+                correct = (answer == 1);%correct if left is chosen
             elseif current_side == 1 & current_ref_or < 0%COMPOUND LEFT, REFERENCE RIGHT
                 correct = (answer == 2);
             elseif current_side == 2 & current_ref_or > 0%COMPOUND RIGHT, REFERENCE LEFT
