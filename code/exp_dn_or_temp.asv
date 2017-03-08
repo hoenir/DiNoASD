@@ -53,9 +53,9 @@ Current_FrameRate = crsGetFrameRate;
 crsSetDrawPage(10);
 crsClearPage(10,128);
 crsDrawString([0,-100],'***Welkom bij het experiment***');
-crsDrawString([0,-50],'Druk links of rechts om aan te geven');
-crsDrawString([0,-25],'welk raster het meest naar links gedraaid is.')
-crsDrawString([0,50],'Druk op een toets om verder te gaan...');
+crsDrawString([0,-50],'Geef aan welk raster');
+crsDrawString([0,-25],'het meest tegen de klok in gedraaid is.')
+crsDrawString([0,50],'Druk op een toets om te starten...');
 crsSetDisplayPage(10);
 
 %Wait for response box keypress
@@ -96,10 +96,10 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
     crsClearPage(1,128);
     crsDrawMatrixPalettised(fix);
 
-%     %---DRAW PAGE 3 : ISI---
-%     crsSetDrawPage(3);
-%     crsClearPage(3,128);
-%     crsDrawMatrixPalettised(fix);
+    %---DRAW PAGE 2 : ISI---
+    crsSetDrawPage(2);
+    crsClearPage(2,128);
+
 % 
 %     %---DRAW PAGE 7 : RESPONSE CUE---
 %     crsSetDrawPage(7);
@@ -201,9 +201,9 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
 
         end
 
-        %+++Add a blank+++
-        page_number_vector = [page_number_vector, 1];
-        page_time_vector = [page_time_vector, param.nr_frames_blank];
+        %+++Add isi+++
+        page_number_vector = [page_number_vector, 2];
+        page_time_vector = [page_time_vector, param.nr_frames_isi];
 
         %temporal interval 2
         %start cycle (to interleave the two components of compound stimulus, for reference it does not matter)
@@ -219,9 +219,13 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
 
         end
 
+        %+++Add a blank+++
+        page_number_vector = [page_number_vector, 2];
+        page_time_vector = [page_time_vector, param.nr_frames_blank];
+        
         %+++ Add final blank +++
-        page_number_vector = [page_number_vector, 1, 1];
-        page_time_vector = [page_time_vector, 1, 1];
+        page_number_vector = [page_number_vector, 2, 2];
+        page_time_vector = [page_time_vector, 2, 2];
 
         %Page locations
         page_x_locations = zeros(size(page_number_vector));
@@ -292,10 +296,10 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
         data_matrix(trial_number, 7) = correct;
 
         if correct == 1
-            play(sound_correct,[1 8162*.2]);
+            %play(sound_correct,[1 8162*.2]);
             disp('Subject responded correct.');
         else
-            play(sound_wrong,[1 8162*.2]);
+            %play(sound_wrong,[1 8162*.2]);
             disp('Subject responded incorrect.');
         end
 

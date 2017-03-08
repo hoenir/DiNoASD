@@ -173,7 +173,7 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
         %**********************************************************************
 
         %*************************START PAGE CYCLING***************************
-        %%LUT
+
         crsSetCommand(CRS.CYCLEPAGEDISABLE); % Make sure previous page cycling has ended
         crsPageCyclingSetup( page_number_vector, page_x_locations, page_y_locations, page_time_vector, halting_flags );
         crsSetCommand(CRS.CYCLEPAGEENABLE); % start cycling

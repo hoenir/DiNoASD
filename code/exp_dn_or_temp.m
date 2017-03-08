@@ -52,10 +52,12 @@ Current_FrameRate = crsGetFrameRate;
 %Display welcome text
 crsSetDrawPage(10);
 crsClearPage(10,128);
-crsDrawString([0,-100],'***Welkom bij het experiment***');
-crsDrawString([0,-50],'Druk links of rechts om aan te geven');
-crsDrawString([0,-25],'welk raster het meest naar links gedraaid is.')
-crsDrawString([0,50],'Druk op een toets om verder te gaan...');
+crsDrawString([0,-100],'***Welkom in het experiment***');
+crsDrawString([0,-75],'Je zal telkens TWEE rasters zien, het ene na het andere.');
+crsDrawString([0,-50],'Geef aan welk raster het meest TEGEN DE KLOK IN gedraaid is.');
+crsDrawString([0,-25],'Druk op de BOVENSTE knop om het EERSTE raster te kiezen.');
+crsDrawString([0,0],'Druk op de ONDERSTE knop om het TWEEDE raster te kiezen.');
+crsDrawString([0,50],'Druk op een toets om te starten...');
 crsSetDisplayPage(10);
 
 %Wait for response box keypress
@@ -255,15 +257,15 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
 
         %Wait for response box keypress
         response = crsIOReadDigitalIn;
-        while (response ~= cedrus.left & response ~= cedrus.right)
+        while (response ~= cedrus.top & response ~= cedrus.bottom)
             response = crsIOReadDigitalIn;
         end
 
         crsSetDisplayPage(1);
 
-        if response == cedrus.left
+        if response == cedrus.top
             answer = 1;
-        elseif response == cedrus.right
+        elseif response == cedrus.bottom
             answer = 2;
         end
 
@@ -296,10 +298,10 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
         data_matrix(trial_number, 7) = correct;
 
         if correct == 1
-            play(sound_correct,[1 8162*.2]);
+            %play(sound_correct,[1 8162*.2]);
             disp('Subject responded correct.');
         else
-            play(sound_wrong,[1 8162*.2]);
+            %play(sound_wrong,[1 8162*.2]);
             disp('Subject responded incorrect.');
         end
 
@@ -356,10 +358,10 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
         crsDrawString([0,-200],'***Einde van het huidige trialblok***');
         crsDrawString([0,-50],sprintf('Je hebt reeds %2.1f%% van het experiment voltooid.',percentage_complete));
         crsDrawString([0, 0],sprintf('In dit blok bedroeg je percentage correct %3.0f%%.',prop_correct*100));
-        crsDrawString([0, 50],sprintf('In dit blok bedroeg je bias %3.0f%%.',abs(mean((data_matrix(ok_points,2) == 2))-bias)*100));
-        crsDrawString([0,100],sprintf('%s',bias_string));
-        crsDrawString([0,200],'Druk LINKS als je wil stoppen') ;
-        crsDrawString([0,250],'Druk RECHTS als je een nieuw trialblok wil starten');
+        %crsDrawString([0, 50],sprintf('In dit blok bedroeg je bias %3.0f%%.',abs(mean((data_matrix(ok_points,2) == 2))-bias)*100));
+        %crsDrawString([0,100],sprintf('%s',bias_string));
+        crsDrawString([0,200],'Druk BOVEN als je wil stoppen') ;
+        crsDrawString([0,250],'Druk ONDER als je een nieuw trialblok wil starten');
         crsSetDisplayPage(10);
         pause(2);
         tic
@@ -376,7 +378,7 @@ while cont == 1 & end_experiment == 0 %This is the main experimental block loop
 
         play(sound_button_press,[1 8162*.05]);
 
-        if response == cedrus.right;
+        if response == cedrus.bottom;
             cont = 1;
             disp('Starting new trialblock...');
         else
